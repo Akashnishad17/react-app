@@ -4,10 +4,12 @@ export default function TextForm(props) {
 
     const handleUpClick = () => {
         setText(text.toUpperCase());
+        props.showAlert("Converted to Upper Case", "success");
     };
 
     const handleLoClick = () => {
         setText(text.toLowerCase());
+        props.showAlert("Converted to Lower Case", "success");
     };
 
     const handleOnChange = (event) => {
@@ -16,6 +18,7 @@ export default function TextForm(props) {
 
     const handleClearClick = () => {
         setText('');
+        props.showAlert("Text Cleared", "success");
     }
 
     const [text, setText] = useState('');
@@ -26,8 +29,8 @@ export default function TextForm(props) {
                 <h1>{props.heading}</h1>
                 <div className="mb-3">
                     <textarea className="form-control" value={text} onChange={handleOnChange} id="myBox" rows="8"></textarea>
-                    <button className="btn btn-primary my-3 mx-1" onClick={handleUpClick}>Convert to UpperCase</button>
-                    <button className="btn btn-primary my-3 mx-1" onClick={handleLoClick}>Convert to LowerCase</button>
+                    <button className="btn btn-primary my-3 mx-1" onClick={handleUpClick}>Convert to Upper Case</button>
+                    <button className="btn btn-primary my-3 mx-1" onClick={handleLoClick}>Convert to Lower Case</button>
                     <button className="btn btn-primary my-3 mx-1" onClick={handleClearClick}>Clear Text</button>
                 </div>
             </div>
@@ -37,7 +40,7 @@ export default function TextForm(props) {
                 <p>{0.008 * text.split(" ").length} minute read</p>
 
                 <h2>Preview</h2>
-                <p>{text}</p>
+                <p>{text.length === 0 ? "Enter Something Above" : text}</p>
             </div>
         </>
     );
