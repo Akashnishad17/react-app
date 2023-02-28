@@ -10,18 +10,22 @@ function App() {
 	const [mode, setMode] = useState('light');
 	const [alert, setAlert] = useState(null);
 
-	const toggleMode = () => {
-		if(mode === 'light') {
-			setMode('dark');
-			document.body.style.backgroundColor = 'black';
-			document.body.style.color = 'white';
-			showAlert("Dark Mode Enabled", "success");
-		} else {
-			setMode('light');
-			document.body.style.backgroundColor = 'white';
-			document.body.style.color = 'black';
-			showAlert("Light Mode Enabled", "success");
-		}
+	const toggleMode = (cls) => {
+		removeClasses();
+		document.body.classList.add('bg-' + cls);
+		console.log(cls);
+		document.body.style.color = cls === 'dark' ? 'white' : 'black';
+		setMode(cls);
+		showAlert("Theme changed", 'success');
+	};
+
+	const removeClasses = () => {
+		document.body.classList.remove('bg-light');
+		document.body.classList.remove('bg-dark');
+		document.body.classList.remove('bg-primary');
+		document.body.classList.remove('bg-success');
+		document.body.classList.remove('bg-danger');
+		document.body.classList.remove('bg-warning');
 	};
 
 	const showAlert = (message, type) => {
@@ -33,7 +37,7 @@ function App() {
 		);
 		setTimeout(() => {
 			setAlert(null);
-		}, 1500);
+		}, 2000);
 	};
 
 	return (
@@ -44,7 +48,7 @@ function App() {
 
 				<div className="container my-3">
 					<Routes>
-						<Route exact path="/about" element={<About />} />
+						<Route exact path="/about" element={<About mode={mode} />} />
 						<Route exact path="/" element={<TextForm heading="Enter Text to Analyze Below" showAlert={showAlert} />} />
 					</Routes>
 				</div>

@@ -29,18 +29,18 @@ export default function TextForm(props) {
                 <h1>{props.heading}</h1>
                 <div className="mb-3">
                     <textarea className="form-control" value={text} onChange={handleOnChange} id="myBox" rows="8"></textarea>
-                    <button className="btn btn-primary my-3 mx-1" onClick={handleUpClick}>Convert to Upper Case</button>
-                    <button className="btn btn-primary my-3 mx-1" onClick={handleLoClick}>Convert to Lower Case</button>
-                    <button className="btn btn-primary my-3 mx-1" onClick={handleClearClick}>Clear Text</button>
+                    <button disabled={text.length === 0} className="btn btn-primary my-1 mx-1" onClick={handleUpClick}>Convert to Upper Case</button>
+                    <button disabled={text.length === 0} className="btn btn-primary my-1 mx-1" onClick={handleLoClick}>Convert to Lower Case</button>
+                    <button disabled={text.length === 0} className="btn btn-primary my-1 mx-1" onClick={handleClearClick}>Clear Text</button>
                 </div>
             </div>
             <div className="container my-3">
                 <h2>Your Text Summary</h2>
-                <p>{text.split(" ").length} words and {text.length} characters</p>
-                <p>{0.008 * text.split(" ").length} minute read</p>
+                <p>{text.split(" ").filter((e) => e.length > 0).length} words and {text.length} characters</p>
+                <p>{0.008 * text.split(" ").filter((e) => e.length > 0).length} minute read</p>
 
                 <h2>Preview</h2>
-                <p>{text.length === 0 ? "Enter Something Above" : text}</p>
+                <p>{text.length === 0 ? "Nothing to preview" : text}</p>
             </div>
         </>
     );
